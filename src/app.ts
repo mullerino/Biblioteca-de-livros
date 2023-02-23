@@ -1,10 +1,16 @@
 import Fastify from 'fastify'
 import { bookRoutes } from './modules/book.route'
+import { bookSchemas } from './modules/book.schema';
 
 const server = Fastify()
 
 const main = async ()=>{
-    server.register(bookRoutes, {prefix: "api/book"})
+
+    for(const schema of [...bookSchemas]){
+        server.addSchema(schema);
+    }
+
+    server.register(bookRoutes, {prefix: "api/books"})
 
     try{
         await server.listen({port: 5000})
