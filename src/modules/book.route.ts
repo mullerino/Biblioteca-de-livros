@@ -1,10 +1,10 @@
 import { FastifyInstance } from "fastify";
-import { allBooksHandler, deleteBookHandler, registerBookHandler } from "./books.controller";
+import { getBooksHandler, deleteBookHandler, registerBookHandler, updateBookHandler } from "./books.controller";
 import { $ref } from "./book.schema";
 
 export const bookRoutes = async (server: FastifyInstance)=>{
     server.get("/", {
-    }, allBooksHandler)
+    }, getBooksHandler)
 
     server.post("/register", {
         schema: {
@@ -22,4 +22,13 @@ export const bookRoutes = async (server: FastifyInstance)=>{
             }
         }
     }, deleteBookHandler)
+
+    server.put("/update",{
+        schema: {
+            body: $ref('updateBookSchema'),
+            response: {
+                201: $ref('BookSchemaResponse')
+            }
+        }
+    }, updateBookHandler)
 }

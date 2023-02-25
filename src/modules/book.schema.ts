@@ -21,13 +21,20 @@ const deleteBookSchema = z.object({
     id: z.number()
 })
 
+const updateBookSchema = z.object({
+    ...bookInput,
+    id: z.number()
+})
+
 export type ICreateBookInput = z.infer<typeof createBookSchema>
 export type IDeleteBook = z.infer<typeof deleteBookSchema>
+export type IUpdateBook = z.infer<typeof updateBookSchema>
 
 export const { schemas: bookSchemas, $ref } = buildJsonSchemas({
     createBookSchema,
     BookSchemaResponse,
-    deleteBookSchema
+    deleteBookSchema,
+    updateBookSchema
 })
 
 

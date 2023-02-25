@@ -1,5 +1,5 @@
 import {prisma} from '../utils/prisma'
-import { ICreateBookInput, IDeleteBook } from './book.schema'
+import { ICreateBookInput, IDeleteBook, IUpdateBook } from './book.schema'
 
 export const createBook = async(data: ICreateBookInput) =>{
     return await prisma.book.create({
@@ -24,4 +24,16 @@ export const deleteBook = async(idBook: number)=>{
             id: idBook
         }
     })
+}
+
+export const updateBook = async(data: IUpdateBook)=>{
+    return await prisma.book.update({
+        where: {
+            id: Number(data.id)
+        },
+        data: {
+            ...data
+        }
+    })
+    
 }
